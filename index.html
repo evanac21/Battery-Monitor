@@ -1,0 +1,38 @@
+<html>
+	<link rel="stylesheet" type="text/css" href="Style.css">
+	<title>Battery Level</title>
+<div class="tac">
+	<h1 class="title">Battery Level</h1>
+	<h3 id="charge"><h3>
+	<h1 id="batt"></h1>
+	<button type="button" onclick="update()">Refresh</button>
+</div>
+<style>
+	.tac {
+		text-align:center;
+	}
+	.title{
+		color: red;
+	}
+</style>
+	<script>
+		const ic = require("is-charging");
+		const bl = require("battery-level");
+	  	function update() {
+			bl().then(level => {
+			var parseBl = level * 100 + "%";
+			document.getElementById('batt').innerHTML = parseBl;
+			});
+			ic().then(isCharging => {
+			var chargeState = "";
+				if(isCharging) {
+					chargeState = "Yes";
+				}else{
+					chargeState = "No";
+				}
+			var parseCharge = "Charging: " + chargeState;
+			document.getElementById('charge').innerHTML = parseCharge;
+			});
+		}
+	</script>
+</html>
